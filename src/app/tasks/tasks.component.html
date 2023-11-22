@@ -1,0 +1,40 @@
+<div class="container mt-5">
+  <h2>Tareas</h2>
+  <form (ngSubmit)="agregarTarea()">
+    <div class="form-group">
+      <label for="nuevaTarea">Nueva Tarea:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nuevaTarea"
+        name="nuevaTarea"
+        [(ngModel)]="nuevaTarea"
+        (keydown.enter)="agregarTarea()"
+      />
+    </div>
+    <button type="submit" class="btn btn-success">Agregar</button>
+  </form>
+  <ul class="list-group mt-3">
+    <li
+      class="list-group-item"
+      *ngFor="let tarea of tareas; let indexOfelement = index"
+    >
+      <input
+        type="checkbox"
+        id="tareaCompletada"
+        name="tareaCompletada"
+        [(ngModel)]="tarea.completada"
+        (click)="ocultarEliminar(tarea)"
+      />
+      {{ tarea.descripcion }}
+      <ng-template [ngIf]="!tarea.completada">
+        <button
+          class="btn btn-danger btn-sm float-right"
+          (click)="eliminarTarea(tarea)"
+        >
+          X
+        </button>
+      </ng-template>
+    </li>
+  </ul>
+</div>
